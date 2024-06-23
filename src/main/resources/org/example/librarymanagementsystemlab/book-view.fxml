@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.BookViewController">
+    <top>
+        <MenuBar>
+            <!-- Add menu items here if needed -->
+        </MenuBar>
+    </top>
+    <center>
+        <TableView fx:id="tableView">
+            <columns>
+                <TableColumn fx:id="bookIdColumn" text="Book ID" />
+                <TableColumn fx:id="isbnColumn" text="ISBN" />
+                <TableColumn fx:id="titleColumn" text="Title" />
+                <TableColumn fx:id="authorColumn" text="Author" />
+                <TableColumn fx:id="publicationDateColumn" text="Publication Date" />
+                <TableColumn fx:id="categoryColumn" text="Category" />
+                <TableColumn fx:id="quantityColumn" text="Quantity" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="20">
+            <VBox spacing="10">
+                <Label text="ISBN:" />
+                <TextField fx:id="isbnField" />
+                <Label text="Title:" />
+                <TextField fx:id="titleField" />
+                <Label text="Author:" />
+                <TextField fx:id="authorField" />
+                <Label text="Publication Date:" />
+                <DatePicker fx:id="publicationDatePicker" />
+                <Label text="Category:" />
+                <TextField fx:id="categoryField" />
+                <Label text="Quantity:" />
+                <TextField fx:id="quantityField" />
+            </VBox>
+            <VBox spacing="10">
+                <Button text="Add Book" onAction="#addBook" />
+                <Button text="Update Book" onAction="#updateBook" />
+                <Button text="Delete Book" onAction="#deleteBook" />
+            </VBox>
+        </VBox>
+    </right>
+    <TextField fx:id="searchField" layoutX="30.0" layoutY="577.0" promptText="Enter Book ID" />
+    <Button fx:id="searchButton" layoutX="200.0" layoutY="577.0" mnemonicParsing="false" onAction="#searchBookById" text="Search" />
+</BorderPane>
