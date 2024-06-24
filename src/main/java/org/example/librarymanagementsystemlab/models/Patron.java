@@ -1,7 +1,6 @@
 package org.example.librarymanagementsystemlab.models;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Patron {
 
@@ -11,6 +10,10 @@ public class Patron {
     private LocalDate DOB;
 
     public Patron() {
+    }
+
+    public Patron(int patron_id) {
+        this.patron_id = patron_id;
     }
 
     public Patron(int patron_id, String firstName, String lastName, LocalDate DOB) {
@@ -28,6 +31,14 @@ public class Patron {
         this.patron_id = patron_id;
     }
 
+    public LocalDate getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(LocalDate DOB) {
+        this.DOB = DOB;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -43,12 +54,5 @@ public class Patron {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public LocalDate getDOB() {
-        return DOB;
-    }
-
-    public void setDOB(LocalDate DOB) {
-        this.DOB = DOB;
-    }
 }
+

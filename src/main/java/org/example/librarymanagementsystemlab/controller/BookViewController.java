@@ -47,8 +47,6 @@ public class BookViewController {
     private TextField categoryField;
     @FXML
     private TextField quantityField;
-    @FXML
-    private TextField searchField;
 
 
     private BookDaoImpl bookDao;
@@ -132,33 +130,6 @@ public class BookViewController {
         }
     }
 
-
-
-
-    @FXML
-    private void searchBookById() {
-        String idText = searchField.getText(); // Assuming searchField is a TextField where user inputs the ID
-        if (!idText.isEmpty()) {
-            try {
-                int bookId = Integer.parseInt(idText); // Assuming bookId is an integer
-                Book foundBook = bookDao.getBookById(bookId); // Implement this method in your BookDaoImpl class
-                if (foundBook != null) {
-                    // Clear previous selection (if any) and select the found book
-                    tableView.getSelectionModel().clearSelection();
-                    tableView.getSelectionModel().select(foundBook);
-                    tableView.scrollTo(foundBook);
-                } else {
-                    // Book with the given ID not found
-                    showAlert(AlertType.INFORMATION, "Book Not Found", "Book with ID " + bookId + " not found.");
-                }
-            } catch (NumberFormatException e) {
-                showAlert(AlertType.ERROR, "Invalid Input", "Please enter a valid integer ID.");
-            }
-        } else {
-            // Handle case where search field is empty
-            showAlert(AlertType.WARNING, "Empty Field", "Please enter a book ID to search.");
-        }
-    }
 
     private void showAlert(AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);

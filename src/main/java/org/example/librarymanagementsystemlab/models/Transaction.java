@@ -91,18 +91,12 @@ public class Transaction {
         this.returnDate = returnDate;
     }
 
+    // Helper methods to get the IDs
+    public int getPatronIdInt() {
+        return patronId.getPatron_id();
+    }
 
-//    // Additional methods
-//    public boolean isOverdue() {
-//        return returnDate.isAfter(dueDate);
-//    }
-//
-//    public double calculateFine() {
-//        if (isOverdue()) {
-//            long daysOverdue = ChronoUnit.DAYS.between(dueDate, returnDate);
-//            return daysOverdue * 0.5; // Fine rate: $0.50 per day
-//        }
-//        return 0.0;
-//    }
-
+    public int getBookIdInt() {
+        return bookId.getBook_id();
+    }
 }

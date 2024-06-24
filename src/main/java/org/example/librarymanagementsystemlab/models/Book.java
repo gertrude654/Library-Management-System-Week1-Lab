@@ -2,7 +2,7 @@ package org.example.librarymanagementsystemlab.models;
 
 import java.time.LocalDate;
 
-public class Book{
+public class Book {
 
     private int book_id;
     private String isbn;
@@ -13,6 +13,10 @@ public class Book{
     private int quantity;
 
     public Book() {
+    }
+
+    public Book(int book_id) {
+        this.book_id = book_id;
     }
 
     public Book(int book_id, String isbn, String title, String author, LocalDate publication_date, String category, int quantity) {
@@ -82,11 +86,11 @@ public class Book{
         this.publication_date = publication_date;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 }

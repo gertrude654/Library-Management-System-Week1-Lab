@@ -33,7 +33,6 @@
             <Button text="Add Patron" onAction="#addPatron" />
             <Button text="Update Patron" onAction="#updatePatron" />
             <Button text="Delete Patron" onAction="#deletePatron" />
-            <Button text="Search Patron" onAction="#searchPatron" />
         </VBox>
     </VBox>
 </right>

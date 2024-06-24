@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.librarymanagementsystemlab.controller.TransactionController">
-    <children>
-        <TableView fx:id="tableView" layoutX="59.0" layoutY="82.0" prefHeight="400.0" prefWidth="682.0">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.TransactionController">
+    <top>
+        <MenuBar>
+            <!-- Add menu items here if needed -->
+        </MenuBar>
+    </top>
+    <center>
+        <TableView fx:id="tableView">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="patronIdColumn" prefWidth="150.0" text="Patron ID" />
-                <TableColumn fx:id="bookIdColumn" prefWidth="150.0" text="Book ID" />
-                <TableColumn fx:id="transactionDateColumn" prefWidth="150.0" text="Transaction Date" />
-                <TableColumn fx:id="returnDateColumn" prefWidth="150.0" text="Return Date" />
-                <TableColumn fx:id="dueDateColumn" prefWidth="150.0" text="Due Date" />
+                <TableColumn fx:id="idColumn" text="ID" />
+                <TableColumn fx:id="patronIdColumn" text="Patron ID" />
+                <TableColumn fx:id="bookIdColumn" text="Book ID" />
+                <TableColumn fx:id="transactionDateColumn" text="Transaction Date" />
+                <TableColumn fx:id="returnDateColumn" text="Return Date" />
+                <TableColumn fx:id="dueDateColumn" text="Due Date" />
             </columns>
         </TableView>
-        <TextField fx:id="patronIdField" layoutX="59.0" layoutY="515.0" promptText="Patron ID" />
-        <TextField fx:id="bookIdField" layoutX="235.0" layoutY="515.0" promptText="Book ID" />
-        <DatePicker fx:id="transactionDatePicker" layoutX="417.0" layoutY="515.0" promptText="Transaction Date" />
-        <DatePicker fx:id="returnDatePicker" layoutX="584.0" layoutY="515.0" promptText="Return Date" />
-        <DatePicker fx:id="dueDatePicker" layoutX="751.0" layoutY="515.0" promptText="Due Date" />
-    </children>
-</AnchorPane>
+    </center>
+    <right>
+        <VBox spacing="20">
+            <VBox spacing="10">
+                <Label text="Patron ID:" />
+                <TextField fx:id="patronIdField" />
+                <Label text="Book ID:" />
+                <TextField fx:id="bookIdField" />
+                <Label text="Transaction Date:" />
+                <DatePicker fx:id="transactionDatePicker" />
+                <Label text="Return Date:" />
+                <DatePicker fx:id="returnDatePicker" />
+                <Label text="Due Date:" />
+                <DatePicker fx:id="dueDatePicker" />
+            </VBox>
+            <VBox spacing="10">
+                <Button text="Add Transaction" onAction="#addTransaction" />
+                <Button text="Delete Transaction" onAction="#deleteTransaction" />
+            </VBox>
+        </VBox>
+    </right>
+</BorderPane>

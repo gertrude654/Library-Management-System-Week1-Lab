@@ -44,7 +44,7 @@
                 <Button text="Delete Book" onAction="#deleteBook" />
             </VBox>
         </VBox>
+
     </right>
-    <TextField fx:id="searchField" layoutX="30.0" layoutY="577.0" promptText="Enter Book ID" />
-    <Button fx:id="searchButton" layoutX="200.0" layoutY="577.0" mnemonicParsing="false" onAction="#searchBookById" text="Search" />
+
 </BorderPane>

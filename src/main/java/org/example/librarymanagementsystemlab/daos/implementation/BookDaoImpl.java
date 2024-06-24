@@ -92,7 +92,7 @@ public class BookDaoImpl implements BookDao {
         Book b = new Book();
         try {
             Connection con = DatabaseConnection.getConnection();
-            String sql = "SELECT * FROM librarysql.book WHERE ISBN =?";
+            String sql = "SELECT * FROM book WHERE book_id =?";
             PreparedStatement bs = con.prepareStatement(sql);
             bs.setInt(1, b.getBook_id());
             ResultSet rs = bs.executeQuery();

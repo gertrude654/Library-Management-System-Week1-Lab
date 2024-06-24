@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.librarymanagementsystemlab.daos.implementation.PatronDaoImpl;
+import org.example.librarymanagementsystemlab.models.Book;
 import org.example.librarymanagementsystemlab.models.Patron;
 
 import java.time.LocalDate;
@@ -72,18 +73,47 @@ public class PatronViewController {
     @FXML
     private void deletePatron() {
         Patron selectedPatron = tableView.getSelectionModel().getSelectedItem();
+
         if (selectedPatron != null) {
-            patronDao.deletePatron(selectedPatron.getPatron_id());
-            refreshTable();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Book");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete the book with ID " + selectedPatron.getPatron_id() + "?");
+
+            // Option to confirm or cancel deletion
+            ButtonType buttonTypeDelete = new ButtonType("Delete");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
+
+            alert.getButtonTypes().setAll(buttonTypeDelete, buttonTypeCancel);
+
+            // Show the alert and wait for user response
+            alert.showAndWait().ifPresent(buttonType -> {
+                if (buttonType == buttonTypeDelete) {
+                    // User clicked Delete button
+                    patronDao.deletePatron(selectedPatron.getPatron_id());
+                    refreshTable();
+                } else {
+                    // User clicked Cancel button or closed the dialog
+                    // Do nothing
+                }
+            });
+        } else {
+            // No book selected in tableView
+            showAlert(Alert.AlertType.WARNING, "No Book Selected", "Please select a book to delete.");
         }
     }
 
-    @FXML
-    private void searchPatron() {
-        // Implementation for searching patrons (e.g., by name)
-        // This would involve a query to the database and updating the TableView
-        // For simplicity, we'll leave this method empty or use a filter on the patronList
+
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
+
 
     private void refreshTable() {
         patronList.clear();
