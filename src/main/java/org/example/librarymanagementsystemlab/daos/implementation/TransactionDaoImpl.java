@@ -51,11 +51,11 @@ public class TransactionDaoImpl implements TransactionDao {
                 System.out.println("Transaction not added.");
             }
 
-            conn.commit(); // Commit the transaction
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions appropriately, such as logging, showing an alert, or throwing a custom exception
         }
+
     }
 
     @Override
@@ -72,8 +72,6 @@ public class TransactionDaoImpl implements TransactionDao {
             } else {
                 System.out.println("Transaction not deleted.");
             }
-
-            conn.commit(); // Commit the transaction
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions appropriately

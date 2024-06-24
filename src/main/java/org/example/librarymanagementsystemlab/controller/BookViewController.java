@@ -119,9 +119,6 @@ public class BookViewController {
                     // User clicked Delete button
                     bookDao.deleteBook(selectedBook.getBook_id());
                     refreshTable();
-                } else {
-                    // User clicked Cancel button or closed the dialog
-                    // Do nothing
                 }
             });
         } else {

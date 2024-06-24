@@ -4,36 +4,40 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.PatronViewController">
-<top>
-    <MenuBar>
-        <!-- Add menu items here if needed -->
-    </MenuBar>
-</top>
-<center>
-    <TableView fx:id="tableView">
-        <columns>
-            <TableColumn fx:id="idColumn" text="Patron ID" />
-            <TableColumn fx:id="firstNameColumn" text="First Name" />
-            <TableColumn fx:id="lastNameColumn" text="Last Name" />
-            <TableColumn fx:id="dobColumn" text="DOB" />
-        </columns>
-    </TableView>
-</center>
-<right>
-    <VBox spacing="20">
-        <VBox spacing="10">
-            <Label text="First Name:" />
-            <TextField fx:id="firstNameField" />
-            <Label text="Last Name:" />
-            <TextField fx:id="lastNameField" />
-            <Label text="DOB:" />
-            <DatePicker fx:id="dobPicker" />
+    <top>
+        <MenuBar>
+            <!-- Add menu items here if needed -->
+        </MenuBar>
+    </top>
+    <center>
+        <TableView fx:id="tableView">
+            <columns>
+                <TableColumn fx:id="idColumn" text="Patron ID" />
+                <TableColumn fx:id="firstNameColumn" text="First Name" />
+                <TableColumn fx:id="lastNameColumn" text="Last Name" />
+                <TableColumn fx:id="dobColumn" text="DOB" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="20">
+            <VBox spacing="10">
+                <Label text="First Name:" />
+                <TextField fx:id="firstNameField" />
+                <Label text="Last Name:" />
+                <TextField fx:id="lastNameField" />
+                <Label text="DOB:" />
+                <DatePicker fx:id="dobPicker" />
+            </VBox>
+            <VBox spacing="10">
+                <Button text="Add Patron" onAction="#addPatron" />
+                <Button text="Update Patron" onAction="#updatePatron" />
+                <Button text="Delete Patron" onAction="#deletePatron" />
+                <HBox spacing="10">
+                    <TextField fx:id="searchPatronField" promptText="Search Patron" />
+                    <Button text="Search" onAction="#searchPatron" />
+                </HBox>
+            </VBox>
         </VBox>
-        <VBox spacing="10">
-            <Button text="Add Patron" onAction="#addPatron" />
-            <Button text="Update Patron" onAction="#updatePatron" />
-            <Button text="Delete Patron" onAction="#deletePatron" />
-        </VBox>
-    </VBox>
-</right>
+    </right>
 </BorderPane>

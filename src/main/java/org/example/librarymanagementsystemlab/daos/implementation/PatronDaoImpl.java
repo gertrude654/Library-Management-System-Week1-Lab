@@ -7,6 +7,7 @@ import org.example.librarymanagementsystemlab.tables.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class PatronDaoImpl implements PatronDao {
     @Override
@@ -60,8 +61,9 @@ public class PatronDaoImpl implements PatronDao {
     }
 
     @Override
-    public Patron getPatronById(int id) {
+    public Stack<Patron> getPatronById(int id) {
         Patron pt = new Patron();
+        Stack<Patron> retrieved = new Stack<Patron>();
         try {
             Connection con = DatabaseConnection.getConnection();
             String sql = "SELECT * FROM patron WHERE patron_id =?";
@@ -74,10 +76,11 @@ public class PatronDaoImpl implements PatronDao {
                 pt.setLastName(rs.getString("last_name"));
                 pt.setDOB(rs.getDate("dob").toLocalDate());
             }
+            retrieved.add(pt);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pt;
+        return retrieved;
     }
 
     @Override

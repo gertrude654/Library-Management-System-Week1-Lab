@@ -10,34 +10,35 @@
         </MenuBar>
     </top>
     <center>
-        <TableView fx:id="tableView">
+        <TableView fx:id="transactionTableView">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID" />
+                <TableColumn fx:id="transactionIdColumn" text="Transaction ID" />
                 <TableColumn fx:id="patronIdColumn" text="Patron ID" />
                 <TableColumn fx:id="bookIdColumn" text="Book ID" />
                 <TableColumn fx:id="transactionDateColumn" text="Transaction Date" />
-                <TableColumn fx:id="returnDateColumn" text="Return Date" />
                 <TableColumn fx:id="dueDateColumn" text="Due Date" />
+                <TableColumn fx:id="returnDateColumn" text="Return Date" />
             </columns>
         </TableView>
     </center>
     <right>
         <VBox spacing="20">
             <VBox spacing="10">
-                <Label text="Patron ID:" />
-                <TextField fx:id="patronIdField" />
-                <Label text="Book ID:" />
-                <TextField fx:id="bookIdField" />
+                <Label text="Patron:" />
+                <ComboBox fx:id="patronComboBox" />
+                <Label text="Book:" />
+                <ComboBox fx:id="bookComboBox" />
                 <Label text="Transaction Date:" />
                 <DatePicker fx:id="transactionDatePicker" />
-                <Label text="Return Date:" />
-                <DatePicker fx:id="returnDatePicker" />
                 <Label text="Due Date:" />
                 <DatePicker fx:id="dueDatePicker" />
+                <Label text="Return Date:" />
+                <DatePicker fx:id="returnDatePicker" />
             </VBox>
             <VBox spacing="10">
                 <Button text="Add Transaction" onAction="#addTransaction" />
                 <Button text="Delete Transaction" onAction="#deleteTransaction" />
+
             </VBox>
         </VBox>
     </right>

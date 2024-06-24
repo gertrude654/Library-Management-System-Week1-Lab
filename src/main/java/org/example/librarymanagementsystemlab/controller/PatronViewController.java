@@ -11,6 +11,8 @@ import org.example.librarymanagementsystemlab.models.Book;
 import org.example.librarymanagementsystemlab.models.Patron;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Stack;
 
 public class PatronViewController {
 
@@ -30,6 +32,11 @@ public class PatronViewController {
     private TextField lastNameField;
     @FXML
     private DatePicker dobPicker;
+    @FXML
+    private TextField searchPatronField;
+    @FXML
+    private Button searchPatronButton;
+
 
     private PatronDaoImpl patronDao;
     private ObservableList<Patron> patronList;
@@ -101,6 +108,35 @@ public class PatronViewController {
         } else {
             // No book selected in tableView
             showAlert(Alert.AlertType.WARNING, "No Book Selected", "Please select a book to delete.");
+        }
+    }
+
+    @FXML
+    private void searchPatron() {
+        String searchText = searchPatronField.getText().trim();
+
+        if (searchText.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Empty Search", "Please enter a search criteria.");
+            return;
+        }
+
+        // Perform search using PatronDaoImpl
+        Stack<Patron> searchResults = patronDao.getPatronById(Integer.parseInt(searchText));
+
+        if (searchResults==null) {
+            showAlert(Alert.AlertType.INFORMATION, "No Results", "No patrons found matching the search criteria.");
+        } else {
+            // Display search results in a dialog or update UI as needed
+            // Example: Display search results in an Alert
+            StringBuilder resultText = new StringBuilder();
+            for (Patron patron : searchResults) {
+                resultText.append("Patron ID: ").append(patron.getPatron_id()).append(", ")
+                        .append("First Name: ").append(patron.getFirstName()).append(", ")
+                        .append(" Last Name: ").append(patron.getLastName()).append(", ")
+                        .append(" DOB: ").append(patron.getDOB()).append("\n ");
+                // Append other details as needed
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Search Results", resultText.toString());
         }
     }
 

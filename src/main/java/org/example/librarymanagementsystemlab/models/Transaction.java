@@ -1,8 +1,9 @@
 package org.example.librarymanagementsystemlab.models;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.util.Stack;
+
 
 public class Transaction {
 
@@ -32,6 +33,9 @@ public class Transaction {
         this.dueDate = dueDate;
         this.returnDate = returnDate;
 
+    }
+
+    public Transaction(Stack<Patron> patron, Book book, LocalDate transactionDate, LocalDate returnDate, LocalDate dueDate) {
     }
 
     public Patron getPatronId() {
