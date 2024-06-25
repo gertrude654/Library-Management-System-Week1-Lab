@@ -14,7 +14,7 @@ import org.example.librarymanagementsystemlab.models.Patron;
 import org.example.librarymanagementsystemlab.models.Transaction;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 public class TransactionController {
 
@@ -42,17 +42,26 @@ public class TransactionController {
     private DatePicker dueDatePicker;
     @FXML
     private DatePicker returnDatePicker;
+    @FXML
+    private Label queueSizeLabel;
+    @FXML
+    private ListView<String> historyListView;
 
     private PatronDaoImpl patronDao;
     private BookDaoImpl bookDao;
     private TransactionDaoImpl transactionDao;
     private ObservableList<Transaction> transactionList;
 
+    private Queue<Transaction> transactionQueue;
+    private Stack<Transaction> transactionHistory;
+
     public void initialize() {
         patronDao = new PatronDaoImpl();
         bookDao = new BookDaoImpl();
         transactionDao = new TransactionDaoImpl();
         transactionList = FXCollections.observableArrayList();
+        transactionQueue = new LinkedList<>();
+        transactionHistory = new Stack<>();
         transactionTableView.setItems(transactionList);
 
         transactionIdColumn.setCellValueFactory(new PropertyValueFactory<>("transactionUd"));
@@ -72,6 +81,7 @@ public class TransactionController {
         loadPatrons();
         loadBooks();
         refreshTable();
+        updateQueueSizeLabel();
     }
 
     private void setupComboBoxes() {
@@ -125,12 +135,12 @@ public class TransactionController {
             Book selectedBook = bookComboBox.getSelectionModel().getSelectedItem();
 
             if (selectedPatron == null) {
-                showAlert("Patron Not Selected", "Please select a patron.");
+                showAlert(Alert.AlertType.WARNING,"Patron Not Selected", "Please select a patron.");
                 return;
             }
 
             if (selectedBook == null) {
-                showAlert("Book Not Selected", "Please select a book.");
+                showAlert(Alert.AlertType.WARNING,"Book Not Selected", "Please select a book.");
                 return;
             }
 
@@ -139,25 +149,41 @@ public class TransactionController {
             LocalDate dueDate = dueDatePicker.getValue();
 
             if (transactionDate == null || returnDate == null || dueDate == null) {
-                showAlert("Invalid Input", "Please enter valid dates.");
+                showAlert(Alert.AlertType.ERROR,"Invalid Input", "Please enter valid dates.");
                 return;
             }
 
             Transaction transaction = new Transaction(selectedPatron, selectedBook, transactionDate, returnDate, dueDate);
-            transactionDao.addTransaction(transaction);
-            refreshTable();
+            transactionQueue.offer(transaction); // Add transaction to queue
+            transactionList.add(transaction); // Add transaction to table view
+            updateQueueSizeLabel(); // Update queue size label
             clearInputFields();
         } catch (NumberFormatException e) {
-            showAlert("Invalid Input", "Please enter valid numeric values for Patron ID and Book ID.");
+            showAlert(Alert.AlertType.ERROR,"Invalid Input", "Please enter valid numeric values for Patron ID and Book ID.");
         }
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    @FXML
+    private void processTransactions() {
+        while (!transactionQueue.isEmpty()) {
+            Transaction transaction = transactionQueue.poll();
+            transaction.setReturnDate(LocalDate.now()); // Simulating return today
+            transactionDao.addTransaction(transaction); // Persist transaction
+            transactionHistory.push(transaction); // Add to history stack
+            transactionList.remove(transaction); // Remove from table view
+        }
+        updateQueueSizeLabel(); // Update queue size label
+    }
+
+    @FXML
+    private void undoLastTransaction() {
+        if (!transactionHistory.isEmpty()) {
+            Transaction lastTransaction = transactionHistory.pop();
+            // Implement logic to undo transaction (if needed)
+            // Example: transactionDao.deleteTransaction(lastTransaction.getTransactionUd());
+            transactionList.add(lastTransaction); // Add back to table view
+            updateQueueSizeLabel(); // Update queue size label
+        }
     }
 
     @FXML
@@ -185,11 +211,11 @@ public class TransactionController {
             });
         } else {
             // No book selected in tableView
-            showAlerts(Alert.AlertType.WARNING, "No Transaction Selected", "Please select a transaction to delete.");
+            showAlert(Alert.AlertType.WARNING, "No Transaction Selected", "Please select a transaction to delete.");
         }
     }
 
-    private void showAlerts(Alert.AlertType alertType, String title, String content) {
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -209,4 +235,19 @@ public class TransactionController {
         dueDatePicker.setValue(null);
         returnDatePicker.setValue(null);
     }
-}
+        private void updateQueueSizeLabel() {
+            int queueSize = transactionQueue.size();
+            queueSizeLabel.setText("Queue Size: " + queueSize);
+        }
+
+
+        @FXML
+        private void viewTransactionHistory() {
+            List<String> historyItems = new ArrayList<>();
+            for (Transaction transaction : transactionHistory) {
+                historyItems.add(transaction.toString()); // Assuming you have a proper toString method in Transaction class
+            }
+            historyListView.setItems(FXCollections.observableArrayList(historyItems));
+        }
+    }
+
