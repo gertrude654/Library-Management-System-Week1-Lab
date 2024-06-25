@@ -33,10 +33,7 @@
                 <Button text="Add Patron" onAction="#addPatron" />
                 <Button text="Update Patron" onAction="#updatePatron" />
                 <Button text="Delete Patron" onAction="#deletePatron" />
-                <HBox spacing="10">
-                    <TextField fx:id="searchPatronField" promptText="Search Patron" />
-                    <Button text="Search" onAction="#searchPatron" />
-                </HBox>
+
             </VBox>
         </VBox>
     </right>

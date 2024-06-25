@@ -14,7 +14,6 @@ public class CreateTables {
                     "last_name VARCHAR(100) NOT NULL," +
                     "dob DATE NOT NULL)";
 
-
             String createBookTable = "CREATE TABLE IF NOT EXISTS book (" +
                     "book_id INT PRIMARY KEY AUTO_INCREMENT," +
                     "ISBN VARCHAR(20) UNIQUE," +
@@ -23,7 +22,6 @@ public class CreateTables {
                     "publication_date DATE," +
                     "category VARCHAR(100)," +
                     "quantity INT)" ;
-
 
             String createTransactionTable = "CREATE TABLE IF NOT EXISTS transaction (" +
                     "transaction_id INT PRIMARY KEY AUTO_INCREMENT," +
@@ -35,11 +33,17 @@ public class CreateTables {
                     "FOREIGN KEY (patron_id) REFERENCES patron(patron_id)," +
                     "FOREIGN KEY (book_id) REFERENCES book(book_id))";
 
-            PreparedStatement preparedStatement = conn.prepareStatement(("?,?,?"));
+            String createUserTable = "CREATE TABLE IF NOT EXISTS user (" +
+                    "user_id INT PRIMARY KEY AUTO_INCREMENT," +
+                    "username VARCHAR(200) UNIQUE," +
+                    "password VARCHAR(500))"  ;
+
+            PreparedStatement preparedStatement = conn.prepareStatement(("?,?,?,?"));
 
             preparedStatement.execute(createBookTable);
             preparedStatement.execute(createPatronTable);
             preparedStatement.execute(createTransactionTable);
+            preparedStatement.execute(createUserTable);
 
             System.out.println("Tables created successfully.");
 

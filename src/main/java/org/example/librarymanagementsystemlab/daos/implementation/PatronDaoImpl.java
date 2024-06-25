@@ -5,12 +5,30 @@ import org.example.librarymanagementsystemlab.models.Patron;
 import org.example.librarymanagementsystemlab.tables.DatabaseConnection;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+
 
 public class PatronDaoImpl implements PatronDao {
+
+
+    @Override
+    public boolean validatePatron(String firstName, String password)  {
+        String query = "SELECT * FROM patrons WHERE username = ? AND password =  ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, firstName);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
 
     @Override
     public void addPatron(Patron patron) {

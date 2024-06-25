@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.control.Label?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="org.example.librarymanagementsystemlab.controller.HomeController"
@@ -19,13 +20,22 @@
     <!-- Main layout container -->
     <VBox alignment="CENTER" spacing="20">
 
+        <!-- Title -->
+        <Label text="Library Management System" styleClass="title-text"/>
+
         <!-- Horizontal layout for buttons -->
         <HBox spacing="20" alignment="CENTER">
 
+            <!-- Button for Patrons -->
             <Button text="Patrons" onAction="#openPatronsPage" styleClass="home-button" />
+
+            <!-- Button for Books -->
             <Button text="Books" onAction="#openBooksPage" styleClass="home-button" />
+
+            <!-- Button for Transactions -->
             <Button text="Transactions" onAction="#openTransactionsPage" styleClass="home-button" />
-            <Button text="Reservation" onAction="#openReservationPage" styleClass="home-button" />
+
+
         </HBox>
 
     </VBox>

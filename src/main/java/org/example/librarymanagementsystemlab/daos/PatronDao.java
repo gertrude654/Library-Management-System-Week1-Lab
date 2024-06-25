@@ -12,4 +12,5 @@ public interface PatronDao {
     public void deletePatron(int id);
     public Patron getPatronById(int id);
     public List<Patron> listAllPatrons();
+    public boolean validatePatron(String username,String password);
 }

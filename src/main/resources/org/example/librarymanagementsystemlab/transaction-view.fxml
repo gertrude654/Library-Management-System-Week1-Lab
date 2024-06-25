@@ -37,14 +37,9 @@
             </VBox>
             <VBox spacing="10">
                 <Button text="Add Transaction" onAction="#addTransaction" />
-                <Button text="Process Transactions" onAction="#processTransactions" />
-                <Button text="Undo Last Transaction" onAction="#undoLastTransaction" />
-                <Button text="Delete Transaction" onAction="#deleteTransaction" />
+                <Button text="Delete Transaction" onAction="#deleteTransaction"  />
             </VBox>
-            <VBox spacing="10">
-                <Label fx:id="queueSizeLabel" />
-                <ListView fx:id="historyListView" />
-            </VBox>
+
         </VBox>
     </right>
 </BorderPane>

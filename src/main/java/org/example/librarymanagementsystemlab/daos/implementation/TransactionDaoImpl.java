@@ -13,17 +13,6 @@ import java.util.*;
 
 public class TransactionDaoImpl implements TransactionDao {
 
-    // Stack for managing transactions (LIFO)
-    private Stack<Transaction> transactionStack;
-
-    // Queue for managing transactions (FIFO)
-    private Queue<Transaction> transactionQueue;
-
-    public TransactionDaoImpl() {
-        transactionStack = new Stack<>();
-        transactionQueue = new LinkedList<>();
-    }
-
     @Override
     public void addTransaction(Transaction transaction) {
         String sql = "INSERT INTO transaction (patron_id, book_id, transaction_date, due_date, return_date) " +
@@ -64,9 +53,6 @@ public class TransactionDaoImpl implements TransactionDao {
                 updateBookQuantity(transaction.getBookId().getBook_id(), -1);
                 System.out.println("Book checked out successfully.");
 
-                // Push transaction onto the stack
-                transactionStack.push(transaction);
-                System.out.println("Transaction added to stack.");
             } else {
                 System.out.println("Failed to check out the book after transaction.");
             }
@@ -89,14 +75,6 @@ public class TransactionDaoImpl implements TransactionDao {
 
             if (rowsAffected > 0) {
                 System.out.println("Transaction deleted successfully.");
-
-                // Dequeue transaction from the queue
-                Transaction deletedTransaction = transactionQueue.poll();
-                if (deletedTransaction != null) {
-                    System.out.println("Transaction dequeued: " + deletedTransaction.getTransactionUd());
-                } else {
-                    System.out.println("No transaction dequeued.");
-                }
 
             } else {
                 System.out.println("Transaction not deleted.");
