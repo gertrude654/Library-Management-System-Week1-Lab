@@ -93,4 +93,17 @@ public class Book {
     public int getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "book_id=" + book_id +
+                ", isbn='" + isbn + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", publication_date=" + publication_date +
+                ", category='" + category + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

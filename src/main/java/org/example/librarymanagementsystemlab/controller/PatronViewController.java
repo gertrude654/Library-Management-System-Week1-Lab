@@ -111,34 +111,34 @@ public class PatronViewController {
         }
     }
 
-    @FXML
-    private void searchPatron() {
-        String searchText = searchPatronField.getText().trim();
-
-        if (searchText.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Empty Search", "Please enter a search criteria.");
-            return;
-        }
-
-        // Perform search using PatronDaoImpl
-        Stack<Patron> searchResults = patronDao.getPatronById(Integer.parseInt(searchText));
-
-        if (searchResults==null) {
-            showAlert(Alert.AlertType.INFORMATION, "No Results", "No patrons found matching the search criteria.");
-        } else {
-            // Display search results in a dialog or update UI as needed
-            // Example: Display search results in an Alert
-            StringBuilder resultText = new StringBuilder();
-            for (Patron patron : searchResults) {
-                resultText.append("Patron ID: ").append(patron.getPatron_id()).append(", ")
-                        .append("First Name: ").append(patron.getFirstName()).append(", ")
-                        .append(" Last Name: ").append(patron.getLastName()).append(", ")
-                        .append(" DOB: ").append(patron.getDOB()).append("\n ");
-                // Append other details as needed
-            }
-            showAlert(Alert.AlertType.INFORMATION, "Search Results", resultText.toString());
-        }
-    }
+//    @FXML
+//    private void searchPatron() {
+//        String searchText = searchPatronField.getText().trim();
+//
+//        if (searchText.isEmpty()) {
+//            showAlert(Alert.AlertType.WARNING, "Empty Search", "Please enter a search criteria.");
+//            return;
+//        }
+//
+//        // Perform search using PatronDaoImpl
+//        Patron searchResults = patronDao.getPatronById(Integer.parseInt(searchText));
+//
+//        if (searchResults==null) {
+//            showAlert(Alert.AlertType.INFORMATION, "No Results", "No patrons found matching the search criteria.");
+//        } else {
+//            // Display search results in a dialog or update UI as needed
+//            // Example: Display search results in an Alert
+//            StringBuilder resultText = new StringBuilder();
+//            for (Patron patron : searchResults) {
+//                resultText.append("Patron ID: ").append(patron.getPatron_id()).append(", ")
+//                        .append("First Name: ").append(patron.getFirstName()).append(", ")
+//                        .append(" Last Name: ").append(patron.getLastName()).append(", ")
+//                        .append(" DOB: ").append(patron.getDOB()).append("\n ");
+//                // Append other details as needed
+//            }
+//            showAlert(Alert.AlertType.INFORMATION, "Search Results", resultText.toString());
+//        }
+//    }
 
 
 

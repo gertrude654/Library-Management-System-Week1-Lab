@@ -25,6 +25,7 @@
             <Button text="Patrons" onAction="#openPatronsPage" styleClass="home-button" />
             <Button text="Books" onAction="#openBooksPage" styleClass="home-button" />
             <Button text="Transactions" onAction="#openTransactionsPage" styleClass="home-button" />
+            <Button text="Reservation" onAction="#openReservationPage" styleClass="home-button" />
         </HBox>
 
     </VBox>

@@ -16,6 +16,12 @@ public class Patron {
         this.patron_id = patron_id;
     }
 
+    public Patron(String firstName, String lastName, LocalDate DOB) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.DOB = DOB;
+    }
+
     public Patron(int patron_id, String firstName, String lastName, LocalDate DOB) {
         this.patron_id = patron_id;
         this.firstName = firstName;
@@ -53,6 +59,16 @@ public class Patron {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Patron{" +
+                "patron_id=" + patron_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", DOB=" + DOB +
+                '}';
     }
 }
 

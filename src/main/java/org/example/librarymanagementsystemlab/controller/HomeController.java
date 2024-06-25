@@ -26,6 +26,10 @@ public class HomeController {
     private void openTransactionsPage() {
         loadPage("/org/example/librarymanagementsystemlab/transaction-view.fxml");
     }
+    @FXML
+    private void openReservationPage() {
+        loadPage("/org/example/librarymanagementsystemlab/reservation-view.fxml");
+    }
 
     private void loadPage(String fxmlPath) {
         try {

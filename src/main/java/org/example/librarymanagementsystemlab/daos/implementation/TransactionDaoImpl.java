@@ -6,10 +6,7 @@ import org.example.librarymanagementsystemlab.models.Patron;
 import org.example.librarymanagementsystemlab.models.Transaction;
 import org.example.librarymanagementsystemlab.tables.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,7 @@ public class TransactionDaoImpl implements TransactionDao {
 
     @Override
     public void addTransaction(Transaction transaction) {
+
         String sql = "INSERT INTO transaction (patron_id, book_id, transaction_date, due_date, return_date) " +
                 "VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -35,10 +33,16 @@ public class TransactionDaoImpl implements TransactionDao {
                 return;
             }
 
+            // Check if book quantity is greater than 0
+            if (getBookQuantity(transaction.getBookId().getBook_id()) <= 0) {
+                System.out.println("Book quantity is 0. Cannot check out.");
+                return;
+            }
+
             // Set parameters for the prepared statement
             stmt.setInt(1, transaction.getPatronId().getPatron_id());
             stmt.setInt(2, transaction.getBookId().getBook_id());
-            stmt.setDate(3, java.sql.Date.valueOf(transaction.getTransactionDate()));
+            stmt.setDate(3, Date.valueOf(LocalDate.now()));
             stmt.setDate(4, java.sql.Date.valueOf(transaction.getDueDate()));
             stmt.setDate(5, java.sql.Date.valueOf(transaction.getReturnDate()));
 
@@ -46,16 +50,17 @@ public class TransactionDaoImpl implements TransactionDao {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Transaction added successfully.");
+                // Update book quantity after checkout
+                updateBookQuantity(transaction.getBookId().getBook_id(), -1);
+                System.out.println("Book checked out successfully.");
             } else {
-                System.out.println("Transaction not added.");
+                System.out.println("Failed to check out the book after transaction.");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions appropriately, such as logging, showing an alert, or throwing a custom exception
         }
-
     }
 
     @Override
@@ -128,5 +133,60 @@ public class TransactionDaoImpl implements TransactionDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void updateBookQuantity(int bookId, int quantityChange) {
+        // Ensure quantityChange is within reasonable bounds
+        if (quantityChange == 0) {
+            System.out.println("No change in book quantity.");
+            return;
+        } else if (quantityChange < 0) {
+            // Check if reducing quantity will not drop below 0
+            if (getBookQuantity(bookId) <= 0) {
+                System.out.println("Book quantity is already 0. Cannot decrease further.");
+                return;
+            }
+        }
+
+        String sql;
+        if (quantityChange > 0) {
+            sql = "UPDATE book SET quantity = quantity + ? WHERE book_id = ?";
+        } else {
+            sql = "UPDATE book SET quantity = CASE WHEN quantity > 0 THEN quantity + ? ELSE quantity END WHERE book_id = ?";
+        }
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, quantityChange);
+            stmt.setInt(2, bookId);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Book quantity updated successfully.");
+            } else {
+                System.out.println("Failed to update book quantity.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getBookQuantity(int bookId) {
+        String sql = "SELECT quantity FROM book WHERE book_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, bookId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("quantity");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if book not found or error occurs
     }
 }

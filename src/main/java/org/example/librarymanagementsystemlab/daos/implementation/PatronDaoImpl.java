@@ -5,11 +5,13 @@ import org.example.librarymanagementsystemlab.models.Patron;
 import org.example.librarymanagementsystemlab.tables.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class PatronDaoImpl implements PatronDao {
+
     @Override
     public void addPatron(Patron patron) {
         String sql = "INSERT INTO patron(first_name, last_name, dob) VALUES (?, ?, ?)";
@@ -60,27 +62,29 @@ public class PatronDaoImpl implements PatronDao {
 
     }
 
+
     @Override
-    public Stack<Patron> getPatronById(int id) {
+    public Patron getPatronById(int id) {
         Patron pt = new Patron();
-        Stack<Patron> retrieved = new Stack<Patron>();
+       // Patron> retrieved = new Stack<Patron>();
         try {
             Connection con = DatabaseConnection.getConnection();
             String sql = "SELECT * FROM patron WHERE patron_id =?";
             PreparedStatement bs = con.prepareStatement(sql);
-            bs.setInt(1, pt.getPatron_id());
+            bs.setInt(1,id);
             ResultSet rs = bs.executeQuery();
             if (rs.next()) {
 
+                pt.setPatron_id(rs.getInt("patron_id"));
                 pt.setFirstName(rs.getString("first_name"));
                 pt.setLastName(rs.getString("last_name"));
                 pt.setDOB(rs.getDate("dob").toLocalDate());
             }
-            retrieved.add(pt);
+            //retrieved.add(pt);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return retrieved;
+        return pt;
     }
 
     @Override

@@ -10,6 +10,6 @@ public interface PatronDao {
     public void addPatron(Patron patron);
     public void updatePatron(Patron patron);
     public void deletePatron(int id);
-    public Stack<Patron> getPatronById(int id);
+    public Patron getPatronById(int id);
     public List<Patron> listAllPatrons();
 }

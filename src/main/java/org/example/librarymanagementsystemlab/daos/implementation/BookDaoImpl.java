@@ -5,7 +5,7 @@ import org.example.librarymanagementsystemlab.models.Book;
 import org.example.librarymanagementsystemlab.tables.DatabaseConnection;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BookDaoImpl implements BookDao {
@@ -22,8 +22,8 @@ public class BookDaoImpl implements BookDao {
             ps.setDate(4, Date.valueOf(book.getPublication_date()));
             ps.setString(5, book.getCategory());
             ps.setInt(6, book.getQuantity());
-            int rowsAffected = ps.executeUpdate();
 
+            int rowsAffected = ps.executeUpdate();
             if(rowsAffected != 0){
                 System.out.println("Library book added successfully.");
 
@@ -94,11 +94,12 @@ public class BookDaoImpl implements BookDao {
             Connection con = DatabaseConnection.getConnection();
             String sql = "SELECT * FROM book WHERE book_id =?";
             PreparedStatement bs = con.prepareStatement(sql);
-            bs.setInt(1, b.getBook_id());
+            bs.setInt(1, id);
             ResultSet rs = bs.executeQuery();
             if (rs.next()) {
+                b.setBook_id(rs.getInt("book_id"));
                 b.setIsbn(rs.getString("isbn"));
-                b.setTitle(rs.getString("name"));
+                b.setTitle(rs.getString("title"));
                 b.setAuthor(rs.getString("author"));
                 b.setPublication_date(rs.getDate("publication_date").toLocalDate());
                 b.setQuantity(rs.getInt("quantity"));
@@ -112,7 +113,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> listAllBooks() {
-        List<Book> books = new ArrayList<>();
+        List<Book> books = new LinkedList<>();
         String sql = "SELECT * FROM book";
         try {
             Connection connection = DatabaseConnection.getConnection();

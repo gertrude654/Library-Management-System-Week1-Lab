@@ -29,7 +29,7 @@ public class CreateTables {
                     "transaction_id INT PRIMARY KEY AUTO_INCREMENT," +
                     "patron_id INT," +
                     "book_id INT," +
-                    "transaction_Date DATE NOT NULL," +
+                    "transaction_Date DATE ," +
                     "return_date DATE," +
                     "due_date DATE," +
                     "FOREIGN KEY (patron_id) REFERENCES patron(patron_id)," +
