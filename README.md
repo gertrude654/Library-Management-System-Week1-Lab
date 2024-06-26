@@ -33,7 +33,7 @@ To run the Library Management System locally, follow these steps:
 
 - Clone the repository:
 Copy code
-git clone https://github.com/your_username/library-management-system.git
+git clone https://github.com/gertrude654/library-management-system.git
 cd library-management-system
 Set up the database:
 
