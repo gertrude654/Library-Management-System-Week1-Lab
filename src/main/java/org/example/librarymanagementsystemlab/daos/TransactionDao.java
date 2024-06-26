@@ -12,6 +12,9 @@ public interface TransactionDao {
     void deleteTransaction(int transactionId);
 
     List<Transaction> getAllTransactions();
+     void markAsReturned(int transactionId);
+    void updateTransaction(Transaction transaction);
+
 
 
 

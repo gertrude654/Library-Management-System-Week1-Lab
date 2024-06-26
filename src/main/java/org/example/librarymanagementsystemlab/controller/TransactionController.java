@@ -1,174 +1,3 @@
-//package org.example.librarymanagementsystemlab.controller;
-//
-//import javafx.beans.property.SimpleObjectProperty;
-//import javafx.fxml.FXML;
-//import javafx.scene.control.*;
-//import javafx.scene.control.cell.PropertyValueFactory;
-//import javafx.scene.control.Alert.AlertType;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import org.example.librarymanagementsystemlab.daos.implementation.TransactionDaoImpl;
-//import org.example.librarymanagementsystemlab.daos.implementation.BookDaoImpl;
-//import org.example.librarymanagementsystemlab.daos.implementation.PatronDaoImpl;
-//import org.example.librarymanagementsystemlab.models.Book;
-//import org.example.librarymanagementsystemlab.models.Patron;
-//import org.example.librarymanagementsystemlab.models.Transaction;
-//
-//import java.time.LocalDate;
-//import java.util.Stack;
-//
-//public class TransactionController {
-//
-//    @FXML
-//    private TableView<Transaction> tableView;
-//    @FXML
-//    private TableColumn<Transaction, Integer> idColumn;
-//    @FXML
-//    private TableColumn<Transaction, Integer> patronIdColumn;
-//    @FXML
-//    private TableColumn<Transaction, Integer> bookIdColumn;
-//    @FXML
-//    private TableColumn<Transaction, LocalDate> transactionDateColumn;
-//    @FXML
-//    private TableColumn<Transaction, LocalDate> returnDateColumn;
-//    @FXML
-//    private TableColumn<Transaction, LocalDate> dueDateColumn;
-//
-//    @FXML
-//    private TextField patronIdField;
-//    @FXML
-//    private TextField bookIdField;
-//    @FXML
-//    private DatePicker transactionDatePicker;
-//    @FXML
-//    private DatePicker returnDatePicker;
-//    @FXML
-//    private DatePicker dueDatePicker;
-//
-//    private TransactionDaoImpl transactionDao;
-//    private PatronDaoImpl patronDao;
-//    private BookDaoImpl bookDao;
-//    private ObservableList<Transaction> transactionList;
-//
-//    @FXML
-//    public void initialize() {
-//        transactionDao = new TransactionDaoImpl();
-//        patronDao = new PatronDaoImpl();
-//        bookDao = new BookDaoImpl();
-//
-//        transactionList = FXCollections.observableArrayList();
-//        tableView.setItems(transactionList);
-//
-//        idColumn.setCellValueFactory(new PropertyValueFactory<>("transactionUd"));
-//        patronIdColumn.setCellValueFactory(cellData -> {
-//            Patron patron = cellData.getValue().getPatronId();
-//            return new SimpleObjectProperty<>(patron == null ? null : patron.getPatron_id());
-//        });
-//        bookIdColumn.setCellValueFactory(cellData -> {
-//            Book book = cellData.getValue().getBookId();
-//            return new SimpleObjectProperty<>(book == null ? null : book.getBook_id());
-//        });
-//        transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
-//        returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
-//        dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-//
-//        refreshTable();
-//    }
-//
-//    @FXML
-//    private void addTransaction() {
-//        try {
-//            int patronId = Integer.parseInt(patronIdField.getText());
-//            Stack<Patron> patron = patronDao.getPatronById(patronId);
-//            if (patron == null) {
-//                showAlert("Patron Not Found", "Patron with ID " + patronId + " not found.");
-//                return;
-//            }
-//
-//            int bookId = Integer.parseInt(bookIdField.getText());
-//            Book book = bookDao.getBookById(bookId);
-//            if (book == null) {
-//                showAlert("Book Not Found", "Book with ID " + bookId + " not found.");
-//                return;
-//            }
-//
-//            LocalDate transactionDate = transactionDatePicker.getValue();
-//            LocalDate returnDate = returnDatePicker.getValue();
-//            LocalDate dueDate = dueDatePicker.getValue();
-//
-//            if (transactionDate == null || returnDate == null || dueDate == null) {
-//                showAlert("Invalid Input", "Please enter valid dates.");
-//                return;
-//            }
-//
-//            Transaction transaction = new Transaction(patron, book, transactionDate, returnDate, dueDate);
-//            transactionDao.addTransaction(transaction);
-//            refreshTable();
-//            clearInputFields();
-//        } catch (NumberFormatException e) {
-//            showAlert("Invalid Input", "Please enter valid numeric values for Patron ID and Book ID.");
-//        }
-//    }
-//
-//    @FXML
-//    private void deleteTransaction() {
-//        Transaction selectedTransaction = tableView.getSelectionModel().getSelectedItem();
-//        if (selectedTransaction != null) {
-//            Alert alert = new Alert(AlertType.CONFIRMATION);
-//            alert.setTitle("Delete Transaction");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Are you sure you want to delete the transaction with ID " + selectedTransaction.getTransactionUd() + "?");
-//
-//            // Option to confirm or cancel deletion
-//            ButtonType buttonTypeDelete = new ButtonType("Delete");
-//            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
-//
-//            alert.getButtonTypes().setAll(buttonTypeDelete, buttonTypeCancel);
-//
-//            // Show the alert and wait for user response
-//            alert.showAndWait().ifPresent(buttonType -> {
-//                if (buttonType == buttonTypeDelete) {
-//                    // User clicked Delete button
-//                    transactionDao.deleteTransaction(selectedTransaction.getTransactionUd());
-//                    refreshTable();
-//                }
-//            });
-//        } else {
-//            // No book selected in tableView
-//            showAlerts(AlertType.WARNING, "No Transaction Selected", "Please select a transaction to delete.");
-//        }
-//    }
-//
-//    private void showAlerts(AlertType alertType, String title, String content) {
-//        Alert alert = new Alert(alertType);
-//        alert.setTitle(title);
-//        alert.setHeaderText(null);
-//        alert.setContentText(content);
-//        alert.showAndWait();
-//    }
-//
-//
-//    private void refreshTable() {
-//        transactionList.clear();
-//        transactionList.addAll(transactionDao.getAllTransactions());
-//    }
-//
-//    private void clearInputFields() {
-//        patronIdField.clear();
-//        bookIdField.clear();
-//        transactionDatePicker.setValue(null);
-//        returnDatePicker.setValue(null);
-//        dueDatePicker.setValue(null);
-//    }
-//
-//    private void showAlert(String title, String content) {
-//        Alert alert = new Alert(AlertType.WARNING);
-//        alert.setTitle(title);
-//        alert.setHeaderText(null);
-//        alert.setContentText(content);
-//        alert.showAndWait();
-//    }
-//}
 package org.example.librarymanagementsystemlab.controller;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -204,6 +33,8 @@ public class TransactionController {
     @FXML
     private TableColumn<Transaction, LocalDate> returnDateColumn;
     @FXML
+    private TableColumn<Transaction, Boolean> returnedColumn;
+    @FXML
     private ComboBox<Patron> patronComboBox;
     @FXML
     private ComboBox<Book> bookComboBox;
@@ -238,6 +69,7 @@ public class TransactionController {
         transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
         dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
+        returnedColumn.setCellValueFactory(new PropertyValueFactory<>("returned"));
 
         setupComboBoxes();
         loadPatrons();
@@ -246,7 +78,6 @@ public class TransactionController {
     }
 
     private void setupComboBoxes() {
-        // Setting up the Patron ComboBox to display "ID - Name"
         patronComboBox.setCellFactory(comboBox -> new ListCell<>() {
             @Override
             protected void updateItem(Patron patron, boolean empty) {
@@ -262,7 +93,6 @@ public class TransactionController {
             }
         });
 
-        // Setting up the Book ComboBox to display "ID - Title"
         bookComboBox.setCellFactory(comboBox -> new ListCell<>() {
             @Override
             protected void updateItem(Book book, boolean empty) {
@@ -309,12 +139,12 @@ public class TransactionController {
             LocalDate returnDate = returnDatePicker.getValue();
             LocalDate dueDate = dueDatePicker.getValue();
 
-            if (transactionDate == null || returnDate == null || dueDate == null) {
+            if (dueDate == null) {
                 showAlert("Invalid Input", "Please enter valid dates.");
                 return;
             }
 
-            Transaction transaction = new Transaction(selectedPatron, selectedBook, transactionDate, returnDate, dueDate);
+            Transaction transaction = new Transaction(selectedPatron, selectedBook, transactionDate, returnDate, dueDate, false);
             transactionDao.addTransaction(transaction);
             refreshTable();
             clearInputFields();
@@ -340,23 +170,36 @@ public class TransactionController {
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete the transaction with ID " + selectedTransaction.getTransactionUd() + "?");
 
-            // Option to confirm or cancel deletion
             ButtonType buttonTypeDelete = new ButtonType("Delete");
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
 
             alert.getButtonTypes().setAll(buttonTypeDelete, buttonTypeCancel);
 
-            // Show the alert and wait for user response
             alert.showAndWait().ifPresent(buttonType -> {
                 if (buttonType == buttonTypeDelete) {
-                    // User clicked Delete button
                     transactionDao.deleteTransaction(selectedTransaction.getTransactionUd());
                     refreshTable();
                 }
             });
         } else {
-            // No book selected in tableView
             showAlerts(Alert.AlertType.WARNING, "No Transaction Selected", "Please select a transaction to delete.");
+        }
+    }
+
+    @FXML
+    private void markTransactionAsReturned() {
+        Transaction selectedTransaction = transactionTableView.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            if (!selectedTransaction.isReturned()) {
+                selectedTransaction.setReturned(true);
+                selectedTransaction.setReturnDate(LocalDate.now());
+                transactionDao.updateTransaction(selectedTransaction);
+                refreshTable();
+            } else {
+                showAlerts(Alert.AlertType.INFORMATION, "Already Returned", "This transaction is already marked as returned.");
+            }
+        } else {
+            showAlerts(Alert.AlertType.WARNING, "No Transaction Selected", "Please select a transaction to mark as returned.");
         }
     }
 

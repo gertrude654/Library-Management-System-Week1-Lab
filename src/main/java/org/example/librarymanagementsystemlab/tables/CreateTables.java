@@ -30,6 +30,7 @@ public class CreateTables {
                     "transaction_Date DATE ," +
                     "return_date DATE," +
                     "due_date DATE," +
+                    "is_returned TINYINT DEFAULT(0),"+
                     "FOREIGN KEY (patron_id) REFERENCES patron(patron_id)," +
                     "FOREIGN KEY (book_id) REFERENCES book(book_id))";
 

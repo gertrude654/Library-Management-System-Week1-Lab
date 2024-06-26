@@ -24,12 +24,7 @@ public class RegisterController {
     private PasswordField passwordField;
 
     private UserDao userDao = new UserDaoImpl();
-    private MainController mainController; // Reference to the main controller
 
-
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
 
     @FXML
     private void handleRegister() {

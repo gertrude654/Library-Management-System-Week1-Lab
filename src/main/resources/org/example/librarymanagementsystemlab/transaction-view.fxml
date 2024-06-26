@@ -18,6 +18,7 @@
                 <TableColumn fx:id="transactionDateColumn" text="Transaction Date" />
                 <TableColumn fx:id="dueDateColumn" text="Due Date" />
                 <TableColumn fx:id="returnDateColumn" text="Return Date" />
+                <TableColumn fx:id="returnedColumn" text="Returned" />
             </columns>
         </TableView>
     </center>
@@ -37,9 +38,9 @@
             </VBox>
             <VBox spacing="10">
                 <Button text="Add Transaction" onAction="#addTransaction" />
-                <Button text="Delete Transaction" onAction="#deleteTransaction"  />
+                <Button text="Delete Transaction" onAction="#deleteTransaction" />
+                <Button text="Mark as Returned" onAction="#markTransactionAsReturned" />
             </VBox>
-
         </VBox>
     </right>
 </BorderPane>

@@ -13,29 +13,36 @@ public class Transaction {
     private LocalDate transactionDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
+    private boolean isReturned;
 
     public Transaction() {
     }
 
-    public Transaction(int transactionUd, Patron patronId, Book bookId, LocalDate transactionDate, LocalDate dueDate, LocalDate returnDate) {
+    public Transaction(int transactionUd, Patron patronId, Book bookId, LocalDate transactionDate, LocalDate dueDate, LocalDate returnDate, boolean isReturned) {
         this.transactionUd = transactionUd;
         this.patronId = patronId;
         this.bookId = bookId;
         this.transactionDate = transactionDate;
         this.dueDate = dueDate;
         this.returnDate = returnDate;
+        this.isReturned = isReturned;
     }
 
-    public Transaction(Patron patronId, Book bookId, LocalDate transactionDate, LocalDate dueDate, LocalDate returnDate) {
+    public Transaction(Patron patronId, Book bookId, LocalDate transactionDate, LocalDate dueDate, LocalDate returnDate, boolean isReturned) {
         this.patronId = patronId;
         this.bookId = bookId;
         this.transactionDate = transactionDate;
         this.dueDate = dueDate;
         this.returnDate = returnDate;
-
+        this.isReturned = isReturned;
     }
 
-    public Transaction(Stack<Patron> patron, Book book, LocalDate transactionDate, LocalDate returnDate, LocalDate dueDate) {
+    public boolean isReturned() {
+        return isReturned;
+    }
+
+    public void setReturned(boolean returned) {
+        isReturned = returned;
     }
 
     public Patron getPatronId() {
