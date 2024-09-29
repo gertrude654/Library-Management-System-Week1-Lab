@@ -20,12 +20,12 @@ public class BookDaoManualTest {
         // Test updateBook method
         System.out.println("\nUpdating a book...");
         Book bookToUpdate = new Book("1234567890", "Updated Book", "Updated Author", LocalDate.now(), "Updated Category", 2);
-        bookToUpdate.setBook_id(1); // Assuming you have a known book_id for update
+        bookToUpdate.setBook_id(1); 
         bookDao.updateBook(bookToUpdate);
 
         // Test deleteBook method
         System.out.println("\nDeleting a book...");
-        int bookIdToDelete = 1; // Assuming book with id 1 exists
+        int bookIdToDelete = 1;
         bookDao.deleteBook(bookIdToDelete);
 
         // Test getBookById method
@@ -45,6 +45,5 @@ public class BookDaoManualTest {
             System.out.println(book);
         }
 
-        // Optionally, add more test cases as needed
     }
 }
