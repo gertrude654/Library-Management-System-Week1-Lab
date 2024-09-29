@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.BookViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.BookViewController" style="-fx-background-color: #ecf0f1;">
     <top>
         <MenuBar>
             <!-- Add menu items here if needed -->
         </MenuBar>
     </top>
     <center>
-        <TableView fx:id="tableView">
+        <TableView fx:id="tableView" style="-fx-background-color: white; -fx-border-color: #3498db; -fx-border-width: 1;">
             <columns>
                 <TableColumn fx:id="bookIdColumn" text="Book ID" />
                 <TableColumn fx:id="isbnColumn" text="ISBN" />
@@ -25,23 +25,34 @@
     <right>
         <VBox spacing="20">
             <VBox spacing="10">
-                <Label text="ISBN:" />
-                <TextField fx:id="isbnField" />
-                <Label text="Title:" />
-                <TextField fx:id="titleField" />
-                <Label text="Author:" />
-                <TextField fx:id="authorField" />
-                <Label text="Publication Date:" />
-                <DatePicker fx:id="publicationDatePicker" />
-                <Label text="Category:" />
-                <TextField fx:id="categoryField" />
-                <Label text="Quantity:" />
-                <TextField fx:id="quantityField" />
+                <Label text="ISBN:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="isbnField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Title:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="titleField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Author:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="authorField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Publication Date:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <DatePicker fx:id="publicationDatePicker" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Category:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="categoryField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Quantity:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="quantityField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
             </VBox>
             <VBox spacing="10">
-                <Button text="Add Book" onAction="#addBook" />
-                <Button text="Update Book" onAction="#updateBook" />
-                <Button text="Delete Book" onAction="#deleteBook" />
+                <Button text="Add Patron" onAction="#addBook"
+                        style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+
+                <Button text="Update Patron" onAction="#updateBook"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+
+                <Button text="Delete Patron" onAction="#deleteBook"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
             </VBox>
         </VBox>
 

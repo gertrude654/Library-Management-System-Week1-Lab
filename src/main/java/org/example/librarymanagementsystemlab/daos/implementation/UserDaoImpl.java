@@ -24,8 +24,9 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-        public boolean registerUser(String username, String password) {
-            String query = "INSERT INTO user (username, password) VALUES (?, ?)";
+    @Override
+    public boolean registerUser(String username, String password) {
+        String query = "INSERT INTO user (username, password) VALUES (?, ?)";
             try {Connection connection = DatabaseConnection.getConnection();
                  PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, username);

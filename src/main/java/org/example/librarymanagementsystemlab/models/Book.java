@@ -10,7 +10,7 @@ public class Book {
     private String author;
     private LocalDate publication_date;
     private String category;
-    private int quantity;
+    private boolean is_available;
 
     public Book() {
     }
@@ -19,23 +19,23 @@ public class Book {
         this.book_id = book_id;
     }
 
-    public Book(int book_id, String isbn, String title, String author, LocalDate publication_date, String category, int quantity) {
+    public Book(int book_id, String isbn, String title, String author, LocalDate publication_date, String category, boolean quantity) {
         this.book_id = book_id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publication_date = publication_date;
         this.category = category;
-        this.quantity = quantity;
+        this.is_available = quantity;
     }
 
-    public Book(String isbn, String title, String author, LocalDate publication_date, String category, int quantity) {
+    public Book(String isbn, String title, String author, LocalDate publication_date, String category, boolean quantity) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publication_date = publication_date;
         this.category = category;
-        this.quantity = quantity;
+        this.is_available = quantity;
     }
 
     public int getBook_id() {
@@ -86,12 +86,12 @@ public class Book {
         this.publication_date = publication_date;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public boolean isIs_available() {
+        return is_available;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setIs_available(boolean is_available) {
+        this.is_available = is_available;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", publication_date=" + publication_date +
                 ", category='" + category + '\'' +
-                ", quantity=" + quantity +
+                ", is_available=" + is_available +
                 '}';
     }
 }

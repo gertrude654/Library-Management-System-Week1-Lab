@@ -12,7 +12,10 @@ public class CreateTables {
                     "patron_id INT PRIMARY KEY AUTO_INCREMENT," +
                     "first_name VARCHAR(100) NOT NULL," +
                     "last_name VARCHAR(100) NOT NULL," +
-                    "dob DATE NOT NULL)";
+                    "dob DATE NOT NULL," +
+                    "username VARCHAR(100) NOT NULL UNIQUE," +
+                    "password VARCHAR(100) NOT NULL)";
+
 
             String createBookTable = "CREATE TABLE IF NOT EXISTS book (" +
                     "book_id INT PRIMARY KEY AUTO_INCREMENT," +
@@ -21,7 +24,7 @@ public class CreateTables {
                     "author VARCHAR(500)," +
                     "publication_date DATE," +
                     "category VARCHAR(100)," +
-                    "quantity INT)" ;
+                    "is_available BOOLEAN DEFAULT TRUE"  ;
 
             String createTransactionTable = "CREATE TABLE IF NOT EXISTS transaction (" +
                     "transaction_id INT PRIMARY KEY AUTO_INCREMENT," +

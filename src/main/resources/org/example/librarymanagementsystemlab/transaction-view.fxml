@@ -2,15 +2,19 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.TransactionController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.TransactionController"
+            style="-fx-background-color: #f5f6f7;">
+
     <top>
-        <MenuBar>
+        <MenuBar style="-fx-background-color: #3498db; -fx-text-fill: white;">
             <!-- Add menu items here if needed -->
         </MenuBar>
     </top>
+
     <center>
-        <TableView fx:id="transactionTableView">
+        <TableView fx:id="transactionTableView" style="-fx-background-color: white; -fx-border-color: #3498db; -fx-border-width: 1;">
             <columns>
                 <TableColumn fx:id="transactionIdColumn" text="Transaction ID" />
                 <TableColumn fx:id="patronIdColumn" text="Patron ID" />
@@ -22,25 +26,37 @@
             </columns>
         </TableView>
     </center>
+
     <right>
         <VBox spacing="20">
-            <VBox spacing="10">
-                <Label text="Patron:" />
-                <ComboBox fx:id="patronComboBox" />
-                <Label text="Book:" />
-                <ComboBox fx:id="bookComboBox" />
-                <Label text="Transaction Date:" />
-                <DatePicker fx:id="transactionDatePicker" />
-                <Label text="Due Date:" />
-                <DatePicker fx:id="dueDatePicker" />
-                <Label text="Return Date:" />
-                <DatePicker fx:id="returnDatePicker" />
+            <VBox spacing="15">
+                <Label text="Patron:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <ComboBox fx:id="patronComboBox" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Book:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <ComboBox fx:id="bookComboBox" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Transaction Date:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <DatePicker fx:id="transactionDatePicker" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Due Date:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <DatePicker fx:id="dueDatePicker" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Return Date:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <DatePicker fx:id="returnDatePicker" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
             </VBox>
+
             <VBox spacing="10">
-                <Button text="Add Transaction" onAction="#addTransaction" />
-                <Button text="Delete Transaction" onAction="#deleteTransaction" />
-                <Button text="Mark as Returned" onAction="#markTransactionAsReturned" />
+                <Button text="Add Transaction" onAction="#addTransaction"
+                        style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+
+                <Button text="Delete Transaction" onAction="#deleteTransaction"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+
+                <Button text="Mark as Returned" onAction="#markTransactionAsReturned"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
             </VBox>
         </VBox>
     </right>
+
 </BorderPane>

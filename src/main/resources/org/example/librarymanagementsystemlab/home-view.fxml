@@ -10,7 +10,7 @@
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="org.example.librarymanagementsystemlab.controller.HomeController"
-          hgap="20" vgap="20">
+          hgap="20" vgap="20" style="-fx-background-color: #2c3e50;">
 
     <!-- Set padding using Insets -->
     <padding>
@@ -18,23 +18,28 @@
     </padding>
 
     <!-- Main layout container -->
-    <VBox alignment="CENTER" spacing="20">
+    <VBox alignment="CENTER" spacing="30">
 
         <!-- Title -->
-        <Label text="Library Management System" styleClass="title-text"/>
+        <Label text="Library Management System" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #ecf0f1;" />
 
         <!-- Horizontal layout for buttons -->
         <HBox spacing="20" alignment="CENTER">
 
             <!-- Button for Patrons -->
-            <Button text="Patrons" onAction="#openPatronsPage" styleClass="home-button" />
+            <Button text="Patrons" onAction="#openPatronsPage"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px;
+                           -fx-background-radius: 8; -fx-cursor: hand;" />
 
             <!-- Button for Books -->
-            <Button text="Books" onAction="#openBooksPage" styleClass="home-button" />
+            <Button text="Books" onAction="#openBooksPage"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px;
+                           -fx-background-radius: 8; -fx-cursor: hand;" />
 
             <!-- Button for Transactions -->
-            <Button text="Transactions" onAction="#openTransactionsPage" styleClass="home-button" />
-
+            <Button text="Transactions" onAction="#openTransactionsPage"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px;
+                           -fx-background-radius: 8; -fx-cursor: hand;" />
 
         </HBox>
 

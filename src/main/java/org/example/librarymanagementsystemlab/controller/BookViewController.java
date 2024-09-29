@@ -7,12 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.librarymanagementsystemlab.daos.implementation.BookDaoImpl;
 import org.example.librarymanagementsystemlab.models.Book;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-
 import javafx.scene.control.ButtonType;
-
-
 
 import java.time.LocalDate;
 
@@ -33,7 +29,7 @@ public class BookViewController {
     @FXML
     private TableColumn<Book, String> categoryColumn;
     @FXML
-    private TableColumn<Book, Integer> quantityColumn;
+    private TableColumn<Book, Boolean> isAvailableColumn;  // Changed to isAvailable
 
     @FXML
     private TextField isbnField;
@@ -46,8 +42,7 @@ public class BookViewController {
     @FXML
     private TextField categoryField;
     @FXML
-    private TextField quantityField;
-
+    private CheckBox isAvailableCheckbox;  // Changed to CheckBox for boolean
 
     private BookDaoImpl bookDao;
     private ObservableList<Book> bookList;
@@ -64,7 +59,7 @@ public class BookViewController {
         authorColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
         publicationDateColumn.setCellValueFactory(new PropertyValueFactory<Book, LocalDate>("publication_date"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("category"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<Book, Integer>("quantity"));
+        isAvailableColumn.setCellValueFactory(new PropertyValueFactory<Book, Boolean>("is_available"));  // Updated
 
         refreshTable();
     }
@@ -76,9 +71,9 @@ public class BookViewController {
         String author = authorField.getText();
         LocalDate publicationDate = publicationDatePicker.getValue();
         String category = categoryField.getText();
-        int quantity = Integer.parseInt(quantityField.getText());
+        boolean isAvailable = isAvailableCheckbox.isSelected();  // Updated to use checkbox
 
-        Book book = new Book(isbn, title, author, publicationDate, category, quantity);
+        Book book = new Book(isbn, title, author, publicationDate, category, isAvailable);  // Updated constructor
         bookDao.addBook(book);
         refreshTable();
     }
@@ -92,7 +87,8 @@ public class BookViewController {
             selectedBook.setAuthor(authorField.getText());
             selectedBook.setPublication_date(publicationDatePicker.getValue());
             selectedBook.setCategory(categoryField.getText());
-            selectedBook.setQuantity(Integer.parseInt(quantityField.getText()));
+            selectedBook.setIs_available(isAvailableCheckbox.isSelected());  // Updated
+
             bookDao.updateBook(selectedBook);
             refreshTable();
         }
@@ -127,7 +123,6 @@ public class BookViewController {
         }
     }
 
-
     private void showAlert(AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -136,11 +131,8 @@ public class BookViewController {
         alert.showAndWait();
     }
 
-
     private void refreshTable() {
         bookList.clear();
         bookList.addAll(bookDao.listAllBooks());
     }
-
-
 }

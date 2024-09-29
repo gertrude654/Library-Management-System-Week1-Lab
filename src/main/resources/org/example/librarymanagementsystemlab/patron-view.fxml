@@ -2,15 +2,19 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.PatronViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.PatronViewController"
+            style="-fx-background-color: #ecf0f1;">
+
     <top>
-        <MenuBar>
+        <MenuBar style="-fx-background-color: #3498db; -fx-text-fill: white;">
             <!-- Add menu items here if needed -->
         </MenuBar>
     </top>
+
     <center>
-        <TableView fx:id="tableView">
+        <TableView fx:id="tableView" style="-fx-background-color: white; -fx-border-color: #3498db; -fx-border-width: 1;">
             <columns>
                 <TableColumn fx:id="idColumn" text="Patron ID" />
                 <TableColumn fx:id="firstNameColumn" text="First Name" />
@@ -19,22 +23,33 @@
             </columns>
         </TableView>
     </center>
-    <right>
-        <VBox spacing="20">
-            <VBox spacing="10">
-                <Label text="First Name:" />
-                <TextField fx:id="firstNameField" />
-                <Label text="Last Name:" />
-                <TextField fx:id="lastNameField" />
-                <Label text="DOB:" />
-                <DatePicker fx:id="dobPicker" />
-            </VBox>
-            <VBox spacing="10">
-                <Button text="Add Patron" onAction="#addPatron" />
-                <Button text="Update Patron" onAction="#updatePatron" />
-                <Button text="Delete Patron" onAction="#deletePatron" />
 
+    <right>
+
+        <VBox spacing="15">
+            <VBox spacing="15">
+                <Label text="First Name:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="firstNameField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="Last Name:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="lastNameField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+
+                <Label text="DOB:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <DatePicker fx:id="dobPicker" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
             </VBox>
-        </VBox>
+
+            <VBox spacing="10">
+                <Button text="Add Patron" onAction="#addPatron"
+                        style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+
+                <Button text="Update Patron" onAction="#updatePatron"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+
+                <Button text="Delete Patron" onAction="#deletePatron"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
+            </VBox>
+        </VBox >
+
     </right>
+
 </BorderPane>

@@ -11,8 +11,8 @@ import java.util.List;
 public class BookDaoImpl implements BookDao {
 
     @Override
-    public void addBook(Book book) {
-        String sql = "INSERT INTO book(isbn,title, author, publication_date, category,quantity) VALUES (?,?,?, ?, ?, ?)";
+    public Book addBook(Book book) {
+        String sql = "INSERT INTO book(isbn, title, author, publication_date, category, is_available) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             Connection connection = DatabaseConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -21,14 +21,13 @@ public class BookDaoImpl implements BookDao {
             ps.setString(3, book.getAuthor());
             ps.setDate(4, Date.valueOf(book.getPublication_date()));
             ps.setString(5, book.getCategory());
-            ps.setInt(6, book.getQuantity());
+            ps.setBoolean(6, book.isIs_available());
 
             int rowsAffected = ps.executeUpdate();
-            if(rowsAffected != 0){
+            if (rowsAffected != 0) {
                 System.out.println("Library book added successfully.");
-
             } else {
-                System.out.println("Library book not added");
+                System.out.println("Library book not added.");
             }
 
             connection.close();
@@ -36,11 +35,12 @@ public class BookDaoImpl implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return book;
     }
 
     @Override
     public void updateBook(Book book) {
-        String sql = "UPDATE  book SET  isbn = ?,title = ?, author = ?, publication_date = ?, category = ? ,quantity = ? WHERE book_id = ?";
+        String sql = "UPDATE book SET isbn = ?, title = ?, author = ?, publication_date = ?, category = ?, is_available = ? WHERE book_id = ?";
         try {
             Connection connection = DatabaseConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -49,15 +49,14 @@ public class BookDaoImpl implements BookDao {
             ps.setString(3, book.getAuthor());
             ps.setDate(4, Date.valueOf(book.getPublication_date()));
             ps.setString(5, book.getCategory());
-            ps.setInt(6, book.getQuantity());
-            ps.setInt(7,book.getBook_id());
+            ps.setBoolean(6, book.isIs_available());
+            ps.setInt(7, book.getBook_id());
 
             int rowsAffected = ps.executeUpdate();
-            if(rowsAffected != 0){
+            if (rowsAffected != 0) {
                 System.out.println("Library book updated successfully.");
-
             } else {
-                System.out.println("Library book not updated");
+                System.out.println("Library book not updated.");
             }
             connection.close();
         } catch (SQLException e) {
@@ -74,17 +73,15 @@ public class BookDaoImpl implements BookDao {
             ps.setInt(1, id);
 
             int rowsAffected = ps.executeUpdate();
-            if(rowsAffected != 0){
+            if (rowsAffected != 0) {
                 System.out.println("Library book deleted successfully.");
-
             } else {
-                System.out.println("Library book not updated");
+                System.out.println("Library book not deleted.");
             }
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -92,7 +89,7 @@ public class BookDaoImpl implements BookDao {
         Book b = new Book();
         try {
             Connection con = DatabaseConnection.getConnection();
-            String sql = "SELECT * FROM book WHERE book_id =?";
+            String sql = "SELECT * FROM book WHERE book_id = ?";
             PreparedStatement bs = con.prepareStatement(sql);
             bs.setInt(1, id);
             ResultSet rs = bs.executeQuery();
@@ -102,10 +99,11 @@ public class BookDaoImpl implements BookDao {
                 b.setTitle(rs.getString("title"));
                 b.setAuthor(rs.getString("author"));
                 b.setPublication_date(rs.getDate("publication_date").toLocalDate());
-                b.setQuantity(rs.getInt("quantity"));
+                b.setCategory(rs.getString("category"));
+                b.setIs_available(rs.getBoolean("is_available"));
             }
             con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return b;
@@ -127,7 +125,7 @@ public class BookDaoImpl implements BookDao {
                         rs.getString("author"),
                         rs.getDate("publication_date").toLocalDate(),
                         rs.getString("category"),
-                        rs.getInt("quantity")
+                        rs.getBoolean("is_available")
                 );
                 books.add(book);
             }
@@ -136,6 +134,5 @@ public class BookDaoImpl implements BookDao {
             e.printStackTrace();
         }
         return books;
-
     }
 }
