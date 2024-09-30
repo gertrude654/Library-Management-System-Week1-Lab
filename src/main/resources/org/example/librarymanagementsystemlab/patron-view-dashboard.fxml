@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.librarymanagementsystemlab.controller.PatronView" spacing="10" alignment="center">
+    <Label text="Available Books" style="-fx-font-size: 24px;"/>
+    <TableView fx:id="tableView">
+        <columns>
+            <TableColumn fx:id="titleCol" text="Title" />
+            <TableColumn fx:id="authorCol" text="Author" />
+            <TableColumn fx:id="publicationDateCol" text="Publication Date" />
+            <TableColumn fx:id="categoryCol" text="Category" />
+            <TableColumn fx:id="availableCol" text="Available" />
+        </columns>
+    </TableView>
+    <Button fx:id="borrowButton" text="Borrow Selected Book" onAction="#borrowBook"/>
+    <Button fx:id="returnButton" text="Return Selected Book" onAction="#returnBook"/>
+</VBox>

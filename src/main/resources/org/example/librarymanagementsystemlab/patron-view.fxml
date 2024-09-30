@@ -19,7 +19,7 @@
                 <TableColumn fx:id="idColumn" text="Patron ID" />
                 <TableColumn fx:id="firstNameColumn" text="First Name" />
                 <TableColumn fx:id="lastNameColumn" text="Last Name" />
-                <TableColumn fx:id="dobColumn" text="DOB" />
+                <TableColumn fx:id="usernameColumn" text="User Name" />
             </columns>
         </TableView>
     </center>
@@ -34,8 +34,8 @@
                 <Label text="Last Name:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
                 <TextField fx:id="lastNameField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
 
-                <Label text="DOB:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
-                <DatePicker fx:id="dobPicker" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+                <Label text="User name:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+                <TextField fx:id="usernameField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
             </VBox>
 
             <VBox spacing="10">

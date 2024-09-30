@@ -18,7 +18,7 @@
                 <TableColumn fx:id="authorColumn" text="Author" />
                 <TableColumn fx:id="publicationDateColumn" text="Publication Date" />
                 <TableColumn fx:id="categoryColumn" text="Category" />
-                <TableColumn fx:id="quantityColumn" text="Quantity" />
+                <TableColumn fx:id="isAvailableColumn" text="Availability Status" />
             </columns>
         </TableView>
     </center>
@@ -40,18 +40,20 @@
                 <Label text="Category:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
                 <TextField fx:id="categoryField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
 
-                <Label text="Quantity:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
-                <TextField fx:id="quantityField" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />
+                <Label text="Availability Status:" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+<!--                <TextField fx:id="isAvailableCheckbox" style="-fx-background-color: #ffffff; -fx-text-fill: #34495e; -fx-border-color: #3498db; -fx-border-radius: 5;" />-->
+                <CheckBox fx:id="isAvailableCheckbox" text="Available" style="-fx-font-size: 14px; -fx-text-fill: #34495e;" />
+
 
             </VBox>
             <VBox spacing="10">
-                <Button text="Add Patron" onAction="#addBook"
+                <Button text="Add Book" onAction="#addBook"
                         style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
 
-                <Button text="Update Patron" onAction="#updateBook"
+                <Button text="Update Book" onAction="#updateBook"
                         style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
 
-                <Button text="Delete Patron" onAction="#deleteBook"
+                <Button text="Delete Book" onAction="#deleteBook"
                         style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;" />
             </VBox>
         </VBox>

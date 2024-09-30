@@ -82,18 +82,20 @@ public class Patron {
     private int patron_id;
     private String firstName;
     private String lastName;
-    private LocalDate dob;
     private String username;
     private String password;
 
     public Patron() {
     }
 
-    public Patron(int patron_id, String firstName, String lastName, LocalDate dob, String username, String password) {
+    public Patron(int patron_id) {
+        this.patron_id = patron_id;
+    }
+
+    public Patron(int patron_id, String firstName, String lastName, String username, String password) {
         this.patron_id = patron_id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dob = dob;
         this.username = username;
         this.password = password;
     }
@@ -123,14 +125,6 @@ public class Patron {
         this.lastName = lastName;
     }
 
-    public LocalDate getDOB() {
-        return dob;
-    }
-
-    public void setDOB(LocalDate dob) {
-        this.dob = dob;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -153,7 +147,6 @@ public class Patron {
                 "patron_id=" + patron_id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", dob=" + dob +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

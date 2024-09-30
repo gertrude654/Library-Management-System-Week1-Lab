@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -60,7 +61,6 @@ public class RegisterController {
         String lastName = lastNameField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
-        LocalDate dob = LocalDate.now(); // Replace this with a date picker or other input method for date of birth
 
         // Check if username is taken
         Patron existingPatron = patronDao.validatePatron(username, password);
@@ -69,10 +69,23 @@ public class RegisterController {
             return;
         }
 
-        Patron newPatron = new Patron(0, firstName, lastName, dob, username, password);
+        Patron newPatron = new Patron(0,firstName, lastName, username, password);
         patronDao.addPatron(newPatron);
         registrationStatus.setText("Registration successful!");
+        showAlert("Registration successful!");
+        loadPage("/org/example/librarymanagementsystemlab/controller/PatronView");
     }
+//    @FXML
+//    private void addPatron() {
+//        String firstName = firstNameField.getText();
+//        String lastName = lastNameField.getText();
+//        String username = usernameField.getText();
+//        String password = passwordField.getText();
+//
+//        Patron patron = new Patron(0, firstName, lastName, username, password);
+//        patronDao.addPatron(patron);
+//        //refreshTable();
+//    }
 
     @FXML
     private void switchToLogin() {

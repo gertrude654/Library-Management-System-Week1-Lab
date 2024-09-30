@@ -4,12 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.layout.Background?>
-<?import javafx.scene.layout.BackgroundFill?>
-<?import javafx.scene.layout.CornerRadii?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.librarymanagementsystemlab.controller.RegisterController"
       alignment="CENTER" spacing="15" style="-fx-background-color: #2c3e50; -fx-border-radius: 10; -fx-background-radius: 10;">
@@ -19,22 +17,47 @@
     </padding>
 
     <children>
-        <Label text="Create a New Account" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #ecf0f1;" />
+        <!-- Title Label -->
+        <Label text="Create a New Account" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #ecf0f1;" />
 
+        <!-- First Name Field -->
+        <Label text="First Name:" style="-fx-font-size: 14px; -fx-text-fill: #ecf0f1;" />
+        <TextField fx:id="firstNameField" promptText="Enter your first name"
+                   style="-fx-background-color: #34495e; -fx-text-fill: #ecf0f1; -fx-prompt-text-fill: #7f8c8d;
+                          -fx-background-radius: 5; -fx-border-radius: 5;" />
+
+        <!-- Last Name Field -->
+        <Label text="Last Name:" style="-fx-font-size: 14px; -fx-text-fill: #ecf0f1;" />
+        <TextField fx:id="lastNameField" promptText="Enter your last name"
+                   style="-fx-background-color: #34495e; -fx-text-fill: #ecf0f1; -fx-prompt-text-fill: #7f8c8d;
+                          -fx-background-radius: 5; -fx-border-radius: 5;" />
+
+<!--        &lt;!&ndash; Date of Birth Field &ndash;&gt;-->
+<!--        <Label text="Date of Birth:" style="-fx-font-size: 14px; -fx-text-fill: #ecf0f1;" />-->
+<!--        <DatePicker fx:id="dobPicker" style="-fx-background-color: #34495e; -fx-text-fill: #ecf0f1;-->
+<!--                      -fx-background-radius: 5; -fx-border-radius: 5;" />-->
+
+        <!-- Username Field -->
         <Label text="Username:" style="-fx-font-size: 14px; -fx-text-fill: #ecf0f1;" />
         <TextField fx:id="usernameField" promptText="Enter username"
                    style="-fx-background-color: #34495e; -fx-text-fill: #ecf0f1; -fx-prompt-text-fill: #7f8c8d;
                           -fx-background-radius: 5; -fx-border-radius: 5;" />
 
+        <!-- Password Field -->
         <Label text="Password:" style="-fx-font-size: 14px; -fx-text-fill: #ecf0f1;" />
         <PasswordField fx:id="passwordField" promptText="Enter password"
                        style="-fx-background-color: #34495e; -fx-text-fill: #ecf0f1; -fx-prompt-text-fill: #7f8c8d;
                               -fx-background-radius: 5; -fx-border-radius: 5;" />
 
+        <!-- Registration Status -->
+        <Text fx:id="registrationStatus" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" />
+
+        <!-- Register Button -->
         <Button text="Register" onAction="#handleRegister"
                 style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px;
                        -fx-background-radius: 5; -fx-cursor: hand;" />
 
+        <!-- Back to Login Button -->
         <Button text="Back to Login" onAction="#switchToLogin"
                 style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px;
                        -fx-background-radius: 5; -fx-cursor: hand;" />

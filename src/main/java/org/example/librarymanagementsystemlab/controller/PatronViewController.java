@@ -181,13 +181,12 @@ public class PatronViewController {
     @FXML
     private TableColumn<Patron, String> lastNameColumn;
     @FXML
-    private TableColumn<Patron, LocalDate> dobColumn;
+    private TableColumn<Patron, String> usernameColumn;
+
     @FXML
     private TextField firstNameField;
     @FXML
     private TextField lastNameField;
-    @FXML
-    private DatePicker dobPicker;
     @FXML
     private TextField usernameField;
     @FXML
@@ -205,7 +204,6 @@ public class PatronViewController {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("patron_id"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        dobColumn.setCellValueFactory(new PropertyValueFactory<>("DOB"));
 
         refreshTable();
     }
@@ -214,13 +212,63 @@ public class PatronViewController {
     private void addPatron() {
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
-        LocalDate dob = dobPicker.getValue();
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        Patron patron = new Patron(0, firstName, lastName, dob, username, password);
+        Patron patron = new Patron(0, firstName, lastName, username, password);
         patronDao.addPatron(patron);
         refreshTable();
+    }
+    @FXML
+    private void updatePatron() {
+        Patron selectedPatron = tableView.getSelectionModel().getSelectedItem();
+        if (selectedPatron != null) {
+            selectedPatron.setFirstName(firstNameField.getText());
+            selectedPatron.setLastName(lastNameField.getText());
+            patronDao.updatePatron(selectedPatron);
+            refreshTable();
+        }
+    }
+
+    @FXML
+    private void deletePatron() {
+        Patron selectedPatron = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedPatron != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Book");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete the book with ID " + selectedPatron.getPatron_id() + "?");
+
+            // Option to confirm or cancel deletion
+            ButtonType buttonTypeDelete = new ButtonType("Delete");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonType.CANCEL.getButtonData());
+
+            alert.getButtonTypes().setAll(buttonTypeDelete, buttonTypeCancel);
+
+            // Show the alert and wait for user response
+            alert.showAndWait().ifPresent(buttonType -> {
+                if (buttonType == buttonTypeDelete) {
+                    // User clicked Delete button
+                    patronDao.deletePatron(selectedPatron.getPatron_id());
+                    refreshTable();
+                } else {
+                    // User clicked Cancel button or closed the dialog
+                    // Do nothing
+                }
+            });
+        } else {
+            // No book selected in tableView
+            showAlert(Alert.AlertType.WARNING, "No Book Selected", "Please select a book to delete.");
+        }
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML

@@ -119,14 +119,18 @@ public class LoginController {
 
         // Check if the user is admin
         if (username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD)) {
-            loginStatus.setText("Login successful: Admin");
+           // loginStatus.setText("Login successful: Admin");
             // Redirect to admin dashboard or load admin panel here.
+            loadPage("/org/example/librarymanagementsystemlab/home-view.fxml");
+
         } else {
             // Validate Patron login
             Patron patron = patronDao.validatePatron(username, password);
             if (patron != null) {
-                loginStatus.setText("Login successful: Patron");
+               // loginStatus.setText("Login successful: Patron");
                 // Redirect to patron dashboard or load patron panel here.
+                loadPage("/org/example/librarymanagementsystemlab/patron-view-dashboard.fxml");
+
             } else {
                 loginStatus.setText("Invalid username or password");
             }

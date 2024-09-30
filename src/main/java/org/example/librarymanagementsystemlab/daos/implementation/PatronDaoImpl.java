@@ -157,7 +157,6 @@ public class PatronDaoImpl implements PatronDao {
                         resultSet.getInt("patron_id"),
                         resultSet.getString("first_name"),
                         resultSet.getString("last_name"),
-                        resultSet.getDate("dob").toLocalDate(),
                         resultSet.getString("username"),
                         resultSet.getString("password")
                 );
@@ -170,14 +169,13 @@ public class PatronDaoImpl implements PatronDao {
 
     @Override
     public void addPatron(Patron patron) {
-        String sql = "INSERT INTO patron (first_name, last_name, dob, username, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO patron (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, patron.getFirstName());
             ps.setString(2, patron.getLastName());
-            ps.setDate(3, Date.valueOf(patron.getDOB()));
-            ps.setString(4, patron.getUsername());
-            ps.setString(5, patron.getPassword());
+            ps.setString(3, patron.getUsername());
+            ps.setString(4, patron.getPassword());
             ps.executeUpdate();
             System.out.println("Patron added successfully.");
         } catch (SQLException e) {
@@ -192,10 +190,9 @@ public class PatronDaoImpl implements PatronDao {
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, patron.getFirstName());
             ps.setString(2, patron.getLastName());
-            ps.setDate(3, Date.valueOf(patron.getDOB()));
-            ps.setString(4, patron.getUsername());
-            ps.setString(5, patron.getPassword());
-            ps.setInt(6, patron.getPatron_id());
+            ps.setString(3, patron.getUsername());
+            ps.setString(4, patron.getPassword());
+            ps.setInt(5, patron.getPatron_id());
             ps.executeUpdate();
             System.out.println("Patron updated successfully.");
         } catch (SQLException e) {
@@ -228,7 +225,6 @@ public class PatronDaoImpl implements PatronDao {
                 patron.setPatron_id(rs.getInt("patron_id"));
                 patron.setFirstName(rs.getString("first_name"));
                 patron.setLastName(rs.getString("last_name"));
-                patron.setDOB(rs.getDate("dob").toLocalDate());
                 patron.setUsername(rs.getString("username"));
                 patron.setPassword(rs.getString("password"));
             }
@@ -250,7 +246,6 @@ public class PatronDaoImpl implements PatronDao {
                         rs.getInt("patron_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
-                        rs.getDate("dob").toLocalDate(),
                         rs.getString("username"),
                         rs.getString("password")
                 );
